@@ -7,6 +7,7 @@ import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-co
 import { Repository } from 'typeorm';
 import { CulturaRecetaService } from './cultura-receta.service';
 import { CacheModule } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 describe('CulturaRecetaService', () => {
   let service: CulturaRecetaService;

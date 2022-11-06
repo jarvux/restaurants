@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 import { CulturaEntity } from './cultura.entity';
 
 @Injectable()
-export class CulturaService {
+export class Cultura_Service {
   constructor(
     @InjectRepository(CulturaEntity)
     private readonly culturaRepository: Repository<CulturaEntity>,
