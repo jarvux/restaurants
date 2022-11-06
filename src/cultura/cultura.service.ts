@@ -29,7 +29,7 @@ export class CulturaService {
       where: { id },
       relations: ['recetas', 'productos', 'restaurantes', 'paises'],
     });
-    if (cultura)
+    if (!cultura)
       throw new BusinessLogicException(
         'La cultura con el id dado no fue encontrada',
         BusinessError.NOT_FOUND,
