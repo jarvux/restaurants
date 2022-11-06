@@ -102,4 +102,30 @@ export class RestauranteService {
 
     await this.restauranteRepository.remove(restaurante);
   }
+  async delete3(id: string) {
+    const restaurante: RestauranteEntity =
+        await this.restauranteRepository.findOne({
+          where: { id },
+        });
+    if (!restaurante)
+      throw new BusinessLogicException(
+          'El restaurante con el id dado no existe',
+          BusinessError.NOT_FOUND,
+      );
+
+    await this.restauranteRepository.remove(restaurante);
+  }
+  async delete4(id: string) {
+    const restaurante: RestauranteEntity =
+        await this.restauranteRepository.findOne({
+          where: { id },
+        });
+    if (!restaurante)
+      throw new BusinessLogicException(
+          'El restaurante con el id dado no existe',
+          BusinessError.NOT_FOUND,
+      );
+
+    await this.restauranteRepository.remove(restaurante);
+  }
 }
