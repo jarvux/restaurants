@@ -5,6 +5,7 @@ import { Role } from '../auth/models/role.enum';
 
 @Injectable()
 export class UserService {
+
   private users: User[] = [
     new User(1, 'admin', 'admin', [
       Role.Read_all,
@@ -24,5 +25,12 @@ export class UserService {
 
   async findOne(username: string): Promise<User | undefined> {
     return this.users.find((user) => user.username === username);
+  }
+
+  buggedFunction(){
+      //Bugs
+
+  let arr = [1, 3, 20, 30];
+  let hola = arr.sort();
   }
 }
