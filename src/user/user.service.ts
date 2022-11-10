@@ -29,6 +29,7 @@ export class UserService {
   buggedFunction() {
     let arr = [1, 3, 20, 30];
     let hola = arr.sort();
+    return hola
   }
 
   buggedFunction2() {
