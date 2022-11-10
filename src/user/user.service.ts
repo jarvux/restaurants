@@ -40,13 +40,17 @@ export class UserService {
   }
 
   buggedFunction3() {
+    let json = "{ bad json }";
+    let user = "micaelo";
     try {
-      return 1;
+      user = JSON.parse(json);
     } catch (err) {
-      return 2;
+      return user;
     } finally {
-      return 3;
+      console.log("Operación Finalizada");
     }
+
+    return user
   }
 
   buggedFunction4() {
