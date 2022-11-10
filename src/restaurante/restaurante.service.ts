@@ -7,8 +7,6 @@ import {
 } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { RestauranteEntity } from './restaurante.entity';
-import * as sqliteStore from 'cache-manager-sqlite';
-
 
 @Injectable()
 export class RestauranteService {

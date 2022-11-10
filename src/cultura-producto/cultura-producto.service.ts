@@ -92,8 +92,8 @@ export class CulturaProductoService {
   async addProductosToCultura(cultureId: string, productos: ProductoEntity[]) {
     const culture = await this.getCulturaById(cultureId);
 
-    for (let i = 0; i < productos.length; i++) {
-      await this.getProductoById(productos[i].id);
+    for (let value of productos) {
+      await this.getProductoById(value.id);
     }
     culture.productos = productos;
     return await this.culturaRepository.save(culture);
