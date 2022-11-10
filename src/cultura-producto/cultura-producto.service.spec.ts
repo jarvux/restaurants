@@ -125,11 +125,11 @@ describe("CulturaProductoService", () => {
   });
 
   it("test B)", async () => {
-    try {
-      service.deleteProductoFromCultura(culture.id, mockProducts[0].id);
-      service.addProductosToCultura(culture.id, mockProducts);
-    } catch {
-      console.log("whatsá");
-    }
+    await expect(() =>
+      service.deleteProductoFromCultura(culture.id, mockProducts[0].id)
+    ).rejects;
+
+    await expect(() => service.addProductosToCultura(culture.id, mockProducts))
+      .rejects;
   });
 });
