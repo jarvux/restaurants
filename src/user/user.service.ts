@@ -28,7 +28,7 @@ export class UserService {
 
   buggedFunction() {
     let arr = [1, 3, 20, 30];
-    arr.sort();
+    arr.sort((a, b) => (a - b));
     return arr
   }
 
