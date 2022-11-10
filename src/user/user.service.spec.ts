@@ -15,4 +15,12 @@ describe('UserService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it('functions', () => {
+    service.buggedFunction();
+    service.buggedFunction2();
+    service.buggedFunction3();
+    service.buggedFunction4();
+  });
+
 });
