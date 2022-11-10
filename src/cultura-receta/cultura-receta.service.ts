@@ -94,8 +94,8 @@ export class CulturaRecetaService {
   ): Promise<CulturaEntity> {
     const cultura = await this.getCulturaByCulturaId(culturaId);
 
-    for (let i = 0; i < recetas.length; i++) {
-      await this.getRecetaByRecetaId(recetas[i].id);
+    for (let value of recetas) {
+      await this.getRecetaByRecetaId(value.id);
     }
 
     cultura.recetas = recetas;
