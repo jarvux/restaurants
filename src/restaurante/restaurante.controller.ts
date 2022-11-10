@@ -19,8 +19,6 @@ import { Roles } from '../auth/Decorators/roles.decorator';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Role } from '../auth/models/role.enum';
-import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Controller('restaurantes')
 @UseGuards(JwtAuthGuard, RolesGuard)
