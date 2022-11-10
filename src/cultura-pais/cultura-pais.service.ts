@@ -58,7 +58,6 @@ export class CulturaPaisService {
     culturaId: string,
     paisId: string,
   ): Promise<PaisEntity> {
-    //const pais: PaisEntity = await this.getPaisByPaisId(paisId);
     const pais: PaisEntity = await this.paisRepository.findOne({
       where: { id: paisId },
     });
@@ -106,6 +105,18 @@ export class CulturaPaisService {
           BusinessError.NOT_FOUND,
         );
     }
+
+    for (let value of paises) {
+      paisId = `${value.id}`;
+      const pais: PaisEntity = await this.getPaisByPaisId(paisId);
+
+      if (!pais)
+        throw new BusinessLogicException(
+            'El país con el id dado no fue encontrado',
+            BusinessError.NOT_FOUND,
+        );
+    }
+
     cultura.paises = paises;
     return await this.culturaRepository.save(cultura);
   }
