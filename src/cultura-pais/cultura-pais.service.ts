@@ -95,8 +95,8 @@ export class CulturaPaisService {
     const cultura: CulturaEntity = await this.getCulturaByCulturaId(culturaId);
     let paisId: string;
 
-    for (let i = 0; i < paises.length; i++) {
-      paisId = `${paises[i].id}`;
+    for (let value of paises) {
+      paisId = `${value.id}`;
       const pais: PaisEntity = await this.getPaisByPaisId(paisId);
 
       if (!pais)
