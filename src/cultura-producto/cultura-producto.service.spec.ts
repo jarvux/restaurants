@@ -4,10 +4,8 @@ import { Repository } from 'typeorm';
 import { ProductoEntity } from '../producto/producto.entity';
 import { CulturaEntity } from '../cultura/cultura.entity';
 import { faker } from '@faker-js/faker';
-import mock = jest.mock;
 import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import {RestauranteEntity} from "../restaurante/restaurante.entity";
 
 describe('CulturaProductoService', () => {
   let service: CulturaProductoService;
@@ -16,12 +14,6 @@ describe('CulturaProductoService', () => {
 
   let productsRepository: Repository<ProductoEntity>;
   let mockProducts: ProductoEntity[];
-
-  const getNewCultura = () => {
-    return cultureRepository.save({
-      nombre: faker.company.name(),
-    });
-  };
 
   const seedMocks = async () => {
     productsRepository.clear();
