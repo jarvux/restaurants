@@ -1,14 +1,14 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CulturaProductoService } from './cultura-producto.service';
-import { Repository } from 'typeorm';
-import { ProductoEntity } from '../producto/producto.entity';
-import { CulturaEntity } from '../cultura/cultura.entity';
-import { faker } from '@faker-js/faker';
+import { Test, TestingModule } from "@nestjs/testing";
+import { CulturaProductoService } from "./cultura-producto.service";
+import { Repository } from "typeorm";
+import { ProductoEntity } from "../producto/producto.entity";
+import { CulturaEntity } from "../cultura/cultura.entity";
+import { faker } from "@faker-js/faker";
 import mock = jest.mock;
-import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { TypeOrmTestingConfig } from "../shared/testing-utils/typeorm-testing-config";
+import { getRepositoryToken } from "@nestjs/typeorm";
 
-describe('CulturaProductoService', () => {
+describe("CulturaProductoService", () => {
   let service: CulturaProductoService;
   let cultureRepository: Repository<CulturaEntity>;
   let culture: CulturaEntity;
@@ -53,47 +53,47 @@ describe('CulturaProductoService', () => {
 
     service = module.get<CulturaProductoService>(CulturaProductoService);
     productsRepository = module.get<Repository<ProductoEntity>>(
-      getRepositoryToken(ProductoEntity),
+      getRepositoryToken(ProductoEntity)
     );
     cultureRepository = module.get<Repository<CulturaEntity>>(
-      getRepositoryToken(CulturaEntity),
+      getRepositoryToken(CulturaEntity)
     );
     await seedMocks();
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 
-  it('Given a new Product, when culture adds new Product then return new product List', async () => {
+  it("Given a new Product, when culture adds new Product then return new product List", async () => {
     const mocknewProduct: ProductoEntity = await mockNewProduct();
 
     const updatedCulture: CulturaEntity = await service.addProductoToCultura(
       culture.id,
-      mocknewProduct.id,
+      mocknewProduct.id
     );
     const productListSize = mockProducts.length;
     expect(updatedCulture.productos.length).toBe(productListSize + 1);
     expect(updatedCulture.productos[productListSize].nombre).toBe(
-      mocknewProduct.nombre,
+      mocknewProduct.nombre
     );
   });
 
-  it('Given a non valid product , when culture adds new Product then throw exception', async () => {
-    const nonValidProductId = '0';
+  it("Given a non valid product , when culture adds new Product then throw exception", async () => {
+    const nonValidProductId = "0";
     await expect(() =>
-      service.addProductoToCultura(culture.id, nonValidProductId),
-    ).rejects.toHaveProperty('message', 'Producto no encontrado');
+      service.addProductoToCultura(culture.id, nonValidProductId)
+    ).rejects.toHaveProperty("message", "Producto no encontrado");
   });
 
-  it('Given a non valid culture , when culture adds new Product then throw exception', async () => {
-    const nonValidCulture = '0';
+  it("Given a non valid culture , when culture adds new Product then throw exception", async () => {
+    const nonValidCulture = "0";
     await expect(() =>
-      service.addProductoToCultura(nonValidCulture, mockProducts[0].id),
-    ).rejects.toHaveProperty('message', 'cultura no encontrada');
+      service.addProductoToCultura(nonValidCulture, mockProducts[0].id)
+    ).rejects.toHaveProperty("message", "cultura no encontrada");
   });
 
-  it('given a valid cultureId and productId when call get product from culture then return product', async () => {
+  it("given a valid cultureId and productId when call get product from culture then return product", async () => {
     const product: ProductoEntity = mockProducts[0];
     const productFromCulture: ProductoEntity =
       await service.getProductByCulturaIdAndProductId(product.id, culture.id);
@@ -102,25 +102,34 @@ describe('CulturaProductoService', () => {
     expect(productFromCulture.nombre).toBe(product.nombre);
   });
 
-  it('Given a non valid culture , when culture adds new Product then throw exception', async () => {
-    const nonValidCulture = '0';
+  it("Given a non valid culture , when culture adds new Product then throw exception", async () => {
+    const nonValidCulture = "0";
     await expect(() =>
       service.getProductByCulturaIdAndProductId(
         mockProducts[0].id,
-        nonValidCulture,
-      ),
-    ).rejects.toHaveProperty('message', 'cultura no encontrada');
+        nonValidCulture
+      )
+    ).rejects.toHaveProperty("message", "cultura no encontrada");
   });
 
-  it('Given a non valid product , when culture adds new Product then throw exception', async () => {
-    const nonValidproduct = '0';
+  it("Given a non valid product , when culture adds new Product then throw exception", async () => {
+    const nonValidproduct = "0";
     await expect(() =>
-      service.getProductByCulturaIdAndProductId(nonValidproduct, culture.id),
-    ).rejects.toHaveProperty('message', 'Producto no encontrado');
+      service.getProductByCulturaIdAndProductId(nonValidproduct, culture.id)
+    ).rejects.toHaveProperty("message", "Producto no encontrado");
   });
 
-  it('Given Culture Id, when call getCultureProduct then return all products from culture', async () => {
+  it("Given Culture Id, when call getCultureProduct then return all products from culture", async () => {
     const productsList = await service.getProductosByCulturaId(culture.id);
     expect(productsList.length).toBe(mockProducts.length);
+  });
+
+  it("test B)", async () => {
+    await expect(() =>
+      service.deleteProductoFromCultura(culture.id, mockProducts[0].id)
+    ).rejects;
+
+    await expect(() => service.addProductosToCultura(culture.id, mockProducts))
+      .rejects;
   });
 });

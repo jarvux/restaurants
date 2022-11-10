@@ -28,8 +28,8 @@ export class UserService {
 
   buggedFunction() {
     let arr = [1, 3, 20, 30];
-    arr.sort((a, b) => (a - b));
-    return arr
+    arr.sort((a, b) => a - b);
+    return arr;
   }
 
   buggedFunction2() {
@@ -50,7 +50,7 @@ export class UserService {
       console.log("Operación Finalizada");
     }
 
-    return user
+    return user;
   }
 
   buggedFunction4() {
