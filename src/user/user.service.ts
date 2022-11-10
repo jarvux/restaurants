@@ -28,7 +28,8 @@ export class UserService {
 
   buggedFunction() {
     let arr = [1, 3, 20, 30];
-    let hola = arr.sort();
+    arr.sort();
+    return arr
   }
 
   buggedFunction2() {
@@ -62,6 +63,7 @@ export class UserService {
 
   buggedFunction5() {
     let arr = [1, 3, 20, 30];
-    let hola = arr.sort();
+    arr.sort();
+    return arr
   }
 }
