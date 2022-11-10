@@ -1,12 +1,11 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { CulturaProductoService } from "./cultura-producto.service";
-import { Repository } from "typeorm";
-import { ProductoEntity } from "../producto/producto.entity";
-import { CulturaEntity } from "../cultura/cultura.entity";
-import { faker } from "@faker-js/faker";
-import mock = jest.mock;
-import { TypeOrmTestingConfig } from "../shared/testing-utils/typeorm-testing-config";
-import { getRepositoryToken } from "@nestjs/typeorm";
+import { Test, TestingModule } from '@nestjs/testing';
+import { CulturaProductoService } from './cultura-producto.service';
+import { Repository } from 'typeorm';
+import { ProductoEntity } from '../producto/producto.entity';
+import { CulturaEntity } from '../cultura/cultura.entity';
+import { faker } from '@faker-js/faker';
+import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe("CulturaProductoService", () => {
   let service: CulturaProductoService;
@@ -122,6 +121,15 @@ describe("CulturaProductoService", () => {
   it("Given Culture Id, when call getCultureProduct then return all products from culture", async () => {
     const productsList = await service.getProductosByCulturaId(culture.id);
     expect(productsList.length).toBe(mockProducts.length);
+  });
+
+
+  it('addProductosToCultura should add an product to a cultura', async () => {
+    const result: CulturaEntity = await service.addProductosToCultura(
+        culture.id,
+        mockProducts,
+    );
+    expect(result.productos.length).toBe(mockProducts.length);
   });
 
   it("test B)", async () => {
