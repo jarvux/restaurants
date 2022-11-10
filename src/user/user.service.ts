@@ -28,8 +28,8 @@ export class UserService {
 
   buggedFunction() {
     let arr = [1, 3, 20, 30];
-    let hola = arr.sort();
-    return hola;
+    arr.sort((a, b) => a - b);
+    return arr;
   }
 
   buggedFunction2() {
@@ -63,10 +63,5 @@ export class UserService {
     } catch (err) {
       // Handle the error
     }
-  }
-
-  buggedFunction5() {
-    let arr = [1, 3, 20, 30];
-    let hola = arr.sort();
   }
 }
