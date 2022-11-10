@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CulturaEntity } from '../cultura/cultura.entity';
-import { ProductoEntity } from '../producto/producto.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { CulturaEntity } from "../cultura/cultura.entity";
+import { ProductoEntity } from "../producto/producto.entity";
 import {
   BusinessError,
   BusinessLogicException,
-} from '../shared/errors/business-errors';
+} from "../shared/errors/business-errors";
 
 @Injectable()
 export class CulturaProductoService {
@@ -15,7 +15,7 @@ export class CulturaProductoService {
     private readonly productoRepository: Repository<ProductoEntity>,
 
     @InjectRepository(CulturaEntity)
-    private readonly culturaRepository: Repository<CulturaEntity>,
+    private readonly culturaRepository: Repository<CulturaEntity>
   ) {}
 
   async getProductoById(productoId: string) {
@@ -24,8 +24,8 @@ export class CulturaProductoService {
     });
     if (!producto)
       throw new BusinessLogicException(
-        'Producto no encontrado',
-        BusinessError.NOT_FOUND,
+        "Producto no encontrado",
+        BusinessError.NOT_FOUND
       );
     return producto;
   }
@@ -38,30 +38,30 @@ export class CulturaProductoService {
   async getCulturaById(culturaId: string): Promise<CulturaEntity> {
     const cultura: CulturaEntity = await this.culturaRepository.findOne({
       where: { id: culturaId },
-      relations: ['productos'],
+      relations: ["productos"],
     });
     if (!cultura)
       throw new BusinessLogicException(
-        'cultura no encontrada',
-        BusinessError.NOT_FOUND,
+        "cultura no encontrada",
+        BusinessError.NOT_FOUND
       );
     return cultura;
   }
 
   async getProductByCulturaIdAndProductId(
     productId: string,
-    culturaId: string,
+    culturaId: string
   ): Promise<ProductoEntity> {
     const dbProduct = await this.getProductoById(productId);
     const culture = await this.getCulturaById(culturaId);
     const productFromCulture: ProductoEntity = culture.productos.find(
-      (producto: ProductoEntity) => producto.id === dbProduct.id,
+      (producto: ProductoEntity) => producto.id === dbProduct.id
     );
 
     if (!productFromCulture)
       throw new BusinessLogicException(
-        'Producto no encontrado en la cultura',
-        BusinessError.PRECONDITION_FAILED,
+        "Producto no encontrado en la cultura",
+        BusinessError.PRECONDITION_FAILED
       );
 
     return productFromCulture;
@@ -69,7 +69,7 @@ export class CulturaProductoService {
 
   async addProductoToCultura(
     culturaId: string,
-    productId: string,
+    productId: string
   ): Promise<CulturaEntity> {
     const dbProduct = await this.getProductoById(productId);
     const cultura = await this.getCulturaById(culturaId);
@@ -80,8 +80,8 @@ export class CulturaProductoService {
 
     if (producto) {
       throw new BusinessLogicException(
-        'El producto existe en la cultura',
-        BusinessError.PRECONDITION_FAILED,
+        "El producto existe en la cultura",
+        BusinessError.PRECONDITION_FAILED
       );
     }
 
@@ -100,16 +100,17 @@ export class CulturaProductoService {
   }
 
   async deleteProductoFromCultura(culturaId: string, productId: string) {
+    //Comment
     const dbProduct = await this.getProductoById(productId);
     const culture = await this.getCulturaById(culturaId);
 
     const product: ProductoEntity = culture.productos.find(
-      (pr: ProductoEntity) => pr.id === dbProduct.id,
+      (pr: ProductoEntity) => pr.id === dbProduct.id
     );
     if (!product)
       throw new BusinessLogicException(
-        'El producto no existe en la cultura',
-        BusinessError.PRECONDITION_FAILED,
+        "El producto no existe en la cultura",
+        BusinessError.PRECONDITION_FAILED
       );
 
     culture.productos = culture.productos.filter((pr) => pr.id !== productId);
