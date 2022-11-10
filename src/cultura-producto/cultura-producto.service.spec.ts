@@ -125,7 +125,7 @@ describe("CulturaProductoService", () => {
   });
 
   it("test B)", async () => {
-    service.deleteProductoFromCultura("1", "1");
-    service.addProductosToCultura("1", []);
+    service.deleteProductoFromCultura(culture.id, mockProducts[0].id);
+    service.addProductosToCultura(culture.id, []);
   });
 });
