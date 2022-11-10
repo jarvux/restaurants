@@ -60,10 +60,4 @@ export class UserService {
       // Handle the error
     }
   }
-
-  buggedFunction5() {
-    let arr = [1, 3, 20, 30];
-    arr.sort();
-    return arr
-  }
 }
