@@ -126,6 +126,6 @@ describe("CulturaProductoService", () => {
 
   it("test B)", async () => {
     service.deleteProductoFromCultura(culture.id, mockProducts[0].id);
-    service.addProductosToCultura(culture.id, []);
+    service.addProductosToCultura(culture.id, mockProducts);
   });
 });
